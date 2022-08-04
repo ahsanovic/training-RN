@@ -11,8 +11,12 @@ const Login = ({navigation}) => {
   })
 
   const loginHandler = () => {
-    // navigation.navigate(strings.screen.Home)
-    showSuccess('login berhasil')
+    navigation.navigate(strings.screen.Home)
+    // showSuccess('login berhasil')
+  }
+
+  const navToRegister = () => {
+    navigation.navigate(strings.screen.Register)
   }
 
   return (
@@ -41,7 +45,7 @@ const Login = ({navigation}) => {
       {/* Registrasi */}
       <View style={styles.registration}>
         <Text>Belum punya akun? </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navToRegister()}>
           <Text style={styles.linkRegistration}>Daftar</Text>
         </TouchableOpacity>
       </View>
@@ -72,11 +76,6 @@ const styles = StyleSheet.create({
   }, */
   formContainer: {
     marginHorizontal: 25
-  },
-  input: {
-    borderRadius: 5,
-    borderColor: '#000000',
-    borderWidth: 1,
   },
   buttonContainer: {
     alignItems: 'center'
