@@ -54,7 +54,7 @@ const Detail = ({ route }) => {
               </View>
             )
           }}
-          keyExtractor={item => item.key}
+          keyExtractor={item => item.id}
           getItemCount={getItemCount}
           getItem={getItem}
         />

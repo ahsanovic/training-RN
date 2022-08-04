@@ -1,15 +1,23 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IllustrationAssessment, IllustrationButton } from '../../assets'
 import { Gap, Input } from '../../components'
-import { fonts, strings, useForm, showError, showSuccess } from '../../utils'
+import { fonts, strings, useForm, showError, showSuccess, getData, storeData } from '../../utils'
 
 const Login = ({navigation}) => {
   const [formData, setFormData] = useForm({
     email: '',
     password: ''
   })
+
+  useEffect(() => {
+    getData('isLogin').then(res => {
+      if (res == true) {
+        navigation.replace(strings.screen.Home)
+      }
+    })
+  }, [])
 
   const userExist = () => {
     axios
@@ -20,6 +28,7 @@ const Login = ({navigation}) => {
       .then(res => {
         if (res.data.users.length > 0) {
           showSuccess('berhasil login')
+          storeData('isLogin', true)
           navigation.replace(strings.screen.Home)
         } else {
           showError('login gagal')
