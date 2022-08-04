@@ -25,7 +25,8 @@ const Home = ({navigation}) => {
   const detailTeam = item => {
     navigation.navigate(strings.screen.Detail, {
       strTeam: item.strTeam,
-      strTeamBadge: item.strTeamBadge
+      strTeamBadge: item.strTeamBadge,
+      idLeague: item.idLeague
     })
   }
 

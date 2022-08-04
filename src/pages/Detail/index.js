@@ -5,7 +5,7 @@ import { colors, fonts, strings } from '../../utils'
 import axios from 'axios'
 
 const Detail = ({ route }) => {
-  const { strTeam, strTeamBadge } = route.params
+  const { strTeam, strTeamBadge, idLeague } = route.params
   const [season, setSeason] = useState()
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Detail = ({ route }) => {
 
   const onLoadSeason = () => {
     axios
-      .get(`${strings.url.base}search_all_seasons.php?id=4849`)
+      .get(`${strings.url.base}search_all_seasons.php?id=${idLeague}`)
       .then(res => {
         setSeason(res.data.seasons)
       })
@@ -25,11 +25,11 @@ const Detail = ({ route }) => {
 
   const getItem = (data, index) => ({
     id: data[index].strSeason,
-    title: data[index].strSeason
+    title: data[index].strSeason,
   });
-  
+
   const getItemCount = (data) => data.length
-  
+
   return (
     <View style={styles.container}>
       <Gap top={20} />
@@ -48,7 +48,7 @@ const Detail = ({ route }) => {
           renderItem={({ item }) => {
             return (
               <View>
-                <Text style={{marginHorizontal: 10}}>{item.title}</Text>
+                <Text style={{ marginHorizontal: 10 }}>{item.title}</Text>
                 <Line height={1} lineColor={colors.secondary} />
                 <Gap top={10} />
               </View>

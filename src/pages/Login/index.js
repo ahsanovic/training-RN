@@ -2,7 +2,7 @@ import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IllustrationAssessment, IllustrationButton } from '../../assets'
 import { Gap, Input } from '../../components'
-import { fonts, strings, useForm } from '../../utils'
+import { fonts, strings, useForm, showError, showSuccess } from '../../utils'
 
 const Login = ({navigation}) => {
   const [formData, setFormData] = useForm({
@@ -11,7 +11,8 @@ const Login = ({navigation}) => {
   })
 
   const loginHandler = () => {
-    navigation.navigate(strings.screen.Home)
+    // navigation.navigate(strings.screen.Home)
+    showSuccess('login berhasil')
   }
 
   return (
