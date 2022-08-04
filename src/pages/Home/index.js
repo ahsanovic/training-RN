@@ -13,7 +13,7 @@ const Home = ({navigation}) => {
 
   const onLoadData = () => {
     axios
-      .get('https://www.thesportsdb.com/api/v1/json/2/search_all_teams.php?s=Soccer&c=England')
+      .get(`${strings.url.base}search_all_teams.php?s=Soccer&c=England`)
       .then(res => {
         setDataTeam(res.data.teams)
       })
@@ -22,8 +22,11 @@ const Home = ({navigation}) => {
       })
   }
 
-  const detailTeam = () => {
-    navigation.navigate(strings.screen.Detail)
+  const detailTeam = item => {
+    navigation.navigate(strings.screen.Detail, {
+      strTeam: item.strTeam,
+      strTeamBadge: item.strTeamBadge
+    })
   }
 
   return (
@@ -35,7 +38,7 @@ const Home = ({navigation}) => {
         renderItem={item => {
           return (
             <View>
-              <List onPress={() => detailTeam()} urlImage={item.item.strTeamBadge} title={item.item.strTeam} subtitle={item.item.strStadium} />
+              <List onPress={() => detailTeam(item.item)} urlImage={item.item.strTeamBadge} title={item.item.strTeam} subtitle={item.item.strStadium} />
               <Gap top={3} />
               <Line height={1} lineColor={colors.secondary} />
             </View>
