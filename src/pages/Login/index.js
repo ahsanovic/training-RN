@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IllustrationAssessment, IllustrationButton } from '../../assets'
@@ -10,8 +11,25 @@ const Login = ({navigation}) => {
     password: ''
   })
 
+  const userExist = () => {
+    axios
+      .post(`${strings.url.basePost}users/login${strings.url.keyPost}`, {
+        'username': formData.email,
+        'password': formData.password
+      })
+      .then(res => {
+        if (res.data.users.length > 0) {
+          showSuccess('berhasil login')
+          navigation.replace(strings.screen.Home)
+        } else {
+          showError('login gagal')
+        }
+      })
+  }
+
   const loginHandler = () => {
-    navigation.navigate(strings.screen.Home)
+    userExist()
+    // navigation.navigate(strings.screen.Home)
     // showSuccess('login berhasil')
   }
 
@@ -45,7 +63,7 @@ const Login = ({navigation}) => {
       {/* Registrasi */}
       <View style={styles.registration}>
         <Text>Belum punya akun? </Text>
-        <TouchableOpacity onPress={() => navToRegister()}>
+        <TouchableOpacity onPress={navToRegister.bind(this)}>
           <Text style={styles.linkRegistration}>Daftar</Text>
         </TouchableOpacity>
       </View>

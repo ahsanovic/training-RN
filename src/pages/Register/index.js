@@ -1,13 +1,29 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { Gap, Input } from '../../components'
-import { colors, fonts, useForm } from '../../utils'
+import { colors, fonts, useForm, strings, showSuccess } from '../../utils'
+import axios from 'axios'
 
-const Register = () => {
+const Register = ({ navigation }) => {
   const [formData, setFormData] = useForm({
     email: '',
     password: ''
   })
+
+  const registerHandler = () => {
+    axios
+      .post(`${strings.url.basePost}users/${strings.url.keyPost}`, {
+        'username': formData.email,
+        'password': formData.password
+      })
+      .then(res => {
+        let data = res.data
+        if (data.status == 'success') {
+          showSuccess('registrasi berhasil')
+          navigation.goBack()
+        } 
+      })
+  }
 
   return (
     <View style={styles.container}>
@@ -19,7 +35,7 @@ const Register = () => {
       </View>
       <Gap top={20} />
       {/* Button */}
-      <TouchableOpacity style={styles.linkContainer}>
+      <TouchableOpacity style={styles.linkContainer} onPress={registerHandler.bind(this)}>
         <Text style={styles.linkRegistration}>Daftar</Text>
       </TouchableOpacity>
     </View>
